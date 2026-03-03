@@ -1,4 +1,4 @@
-package com.daniel.blog.exception;
+package expection;
 
 import expection.PostNotFoundExpection;
 import org.springframework.http.HttpStatus;
