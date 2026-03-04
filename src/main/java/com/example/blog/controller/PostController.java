@@ -1,13 +1,13 @@
-package controller;
+package com.example.blog.controller;
 
 
-import dto.rp.request.CreatePostRequest;
-import dto.rp.request.UpdatePostResuest;
-import dto.rp.response.PostResponse;
+import com.example.blog.dto.rp.request.CreatePostRequest;
+import com.example.blog.dto.rp.request.UpdatePostResuest;
+import com.example.blog.dto.rp.response.PostResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import service.PostService;
+import com.example.blog.service.PostService;
 
 import java.util.UUID;
 

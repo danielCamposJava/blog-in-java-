@@ -1,16 +1,16 @@
-package service;
+package com.example.blog.service;
 
 
-import Mapper.PostMapper;
-import dto.rp.request.CreatePostRequest;
-import dto.rp.request.UpdatePostResuest;
-import dto.rp.response.PostResponse;
-import entity.Post;
-import expection.PostNotFoundExpection;
+import com.example.blog.Mapper.PostMapper;
+import com.example.blog.dto.rp.request.CreatePostRequest;
+import com.example.blog.dto.rp.request.UpdatePostResuest;
+import com.example.blog.dto.rp.response.PostResponse;
+import com.example.blog.entity.Post;
+import com.example.blog.expection.PostNotFoundExpection;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import repository.PostRepository;
+import com.example.blog.repository.PostRepository;
 
 import java.util.UUID;
 @Transactional

@@ -1,4 +1,4 @@
-package dto.rp.request;
+package com.example.blog.dto.rp.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

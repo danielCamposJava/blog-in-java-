@@ -1,10 +1,8 @@
-package Mapper;
+package com.example.blog.Mapper;
 
-import dto.rp.request.CreatePostRequest;
-import dto.rp.response.PostResponse;
-import entity.Post;
-
-import javax.swing.text.html.parser.Entity;
+import com.example.blog.dto.rp.request.CreatePostRequest;
+import com.example.blog.dto.rp.response.PostResponse;
+import com.example.blog.entity.Post;
 
 public class PostMapper {
 

@@ -1,4 +1,4 @@
-package dto.rp.response;
+package com.example.blog.dto.rp.response;
 
 
 import java.time.LocalDateTime;
