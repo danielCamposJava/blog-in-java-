@@ -2,7 +2,7 @@ package com.example.blog.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.Where;
-
+import org.hibernate.annotations.SQLDelete;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,11 +11,16 @@ import java.util.UUID;
 @Entity
 @Table(name = "posts")
 @Where(clause = "deleted = false")
+@SQLDelete(sql = "UPDATE posts SET deleted = true WHERE id=?")
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private User author;
 
     @Column(nullable = false)
     private String title;
@@ -40,9 +45,12 @@ public class Post {
     )
     private Set<Tag> tags = new HashSet<>();
 
-    protected Post() {}
+    protected Post() {
+        // JPA
+    }
 
-    public Post(String title, String content) {
+    public Post(User author, String title, String content) {
+        this.author = author;
         this.title = title;
         this.content = content;
     }
@@ -75,17 +83,33 @@ public class Post {
         this.deleted = true;
     }
 
-    // getters
+    // Getters
 
-    public UUID getId() { return id; }
+    public UUID getId() {
+        return id;
+    }
 
-    public String getTitle() { return title; }
+    public User getAuthor() {
+        return author;
+    }
 
-    public String getContent() { return content; }
+    public String getTitle() {
+        return title;
+    }
 
-    public Set<Tag> getTags() { return tags; }
+    public String getContent() {
+        return content;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
+    public Set<Tag> getTags() {
+        return tags;
+    }
 
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }
