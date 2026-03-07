@@ -1,8 +1,11 @@
 package com.example.blog.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Where;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,9 +26,12 @@ public class Post {
     private User author;
 
     @Column(nullable = false)
+    @NotBlank
     private String title;
 
     @Column(nullable = false, length = 5000)
+    @NotBlank
+    @Size(max = 3000)
     private String content;
 
     @Column(nullable = false, updatable = false)
@@ -46,13 +52,16 @@ public class Post {
     private Set<Tag> tags = new HashSet<>();
 
     protected Post() {
-        // JPA
+        // obrigatório para JPA
     }
 
     public Post(User author, String title, String content) {
         this.author = author;
         this.title = title;
         this.content = content;
+    }
+
+    public Post(@NotBlank String title, @NotBlank @Size(max = 3000) String content) {
     }
 
     @PrePersist

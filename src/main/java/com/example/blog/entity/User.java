@@ -1,28 +1,51 @@
 package com.example.blog.entity;
 
+
 import jakarta.persistence.*;
 
 import java.util.UUID;
 
 @Entity
-@Table( name = "User")
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column( nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
     private String password;
 
-    @Column( nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id", nullable = false)
-    private User author;
+    protected User() {
+        // JPA
+    }
 
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return username;
+    }
 }
