@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.UUID;
 
 public interface PostRepository extends JpaRepository<Post, UUID> {
-
     @Query("""
         SELECT p FROM Post p
         JOIN p.tags t

@@ -1,6 +1,5 @@
 package com.example.blog.controller;
 
-
 import com.example.blog.dto.rp.request.CreatePostRequest;
 import com.example.blog.dto.rp.request.UpdatePostResuest;
 import com.example.blog.dto.rp.response.PostResponse;
@@ -8,7 +7,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import com.example.blog.service.PostService;
-
 import java.util.UUID;
 
 @RestController
@@ -22,12 +20,12 @@ public class PostController {
         return postService.create(request);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/findById{id}")
     public PostResponse findById(@PathVariable UUID id) throws Throwable {
         return  postService.findById(id);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/Udate{id}")
     public  PostResponse update(
             @PathVariable UUID id ,
             @RequestBody @Valid UpdatePostResuest request
@@ -36,7 +34,7 @@ public class PostController {
 
     }
 
-   @DeleteMapping("/{id}")
+   @DeleteMapping("/Delete{id}")
     public void delete(@PathVariable UUID id){
         postService.delete(id);
    }

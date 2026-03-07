@@ -1,8 +1,6 @@
 package com.example.blog.entity;
 
-
 import jakarta.persistence.*;
-
 import java.util.UUID;
 
 @Entity

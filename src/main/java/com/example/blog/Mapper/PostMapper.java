@@ -7,10 +7,10 @@ import com.example.blog.entity.Tag;
 import com.example.blog.entity.User;
 
 import java.util.List;
-
 public class PostMapper {
 
-    public static Post toEntity(CreatePostRequest request, User author){
+    public static Post toEntity(CreatePostRequest request){
+        User author = null;
         return new Post(
                 author,
                 request.title(),
