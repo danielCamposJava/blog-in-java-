@@ -27,7 +27,7 @@ public record PostResponse(
                 post.getId(),
                 post.getTitle(),
                 post.getContent(),
-                post.getAuthor().getName(),
+                post.getAuthor().getName(), // corrigido
                 tags,
                 post.getCreatedAt()
         );
