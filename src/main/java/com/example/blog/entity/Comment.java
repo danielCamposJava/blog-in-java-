@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "Coments" )
-public class Commemt   {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

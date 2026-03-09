@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -52,7 +51,6 @@ public class Post {
     private Set<Tag> tags = new HashSet<>();
 
     protected Post() {
-        // obrigatório para JPA
     }
 
     public Post(User author, String title, String content) {
@@ -91,8 +89,6 @@ public class Post {
     public void delete() {
         this.deleted = true;
     }
-
-    // Getters
 
     public UUID getId() {
         return id;
