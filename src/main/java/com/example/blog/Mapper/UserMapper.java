@@ -3,10 +3,11 @@ package com.example.blog.Mapper;
 import com.example.blog.dto.rp.request.CreateUserRequest;
 import com.example.blog.dto.rp.response.CreateUserResponse;
 import com.example.blog.entity.User;
+import jakarta.validation.Valid;
 
 public class UserMapper {
 
-   public static User toEntity(CreateUserRequest request){
+   public static User toEntity(@Valid CreateUserRequest request){
 
        User user = null;
        return new User(

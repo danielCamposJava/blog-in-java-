@@ -7,35 +7,46 @@ import com.example.blog.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
-    public final UserService userService;
-    @PostMapping("CreateUser")
-    public CreateUserResponse createUser(@RequestBody CreateUserRequest request){
-        return  userService.createUser(request);
+    private final UserService userService;
+
+
+    @PostMapping
+    public CreateUserResponse createUser(
+            @RequestBody @Valid CreateUserRequest request
+    ) {
+        return userService.createUser(request);
     }
 
-    @GetMapping("/FindByud{if}")
-    public CreateUserResponse findByid(@RequestBody CreateUserRequest request){
-        UUID id = null;
+
+    @GetMapping("/{id}")
+    public CreateUserResponse findById(
+            @PathVariable UUID id
+    ) {
         return userService.findUserById(id);
     }
 
-    @PostMapping("/Update{id}")
+
+    @PutMapping("/{id}")
     public CreateUserResponse updateUser(
-            @RequestBody UpdateUserRequest request,
-            @PathVariable @Valid UpdateUserRequest request2
-    ) throws Throwable{
-      return  userService.updateUser( request2);
+            @PathVariable UUID id,
+            @RequestBody @Valid UpdateUserRequest request
+    ) {
+        return userService.updateUser(id, request);
     }
 
-    @DeleteMapping("/Delete{id}")
-    public void delete(@PathVariable UUID id){
+
+    @DeleteMapping("/{id}")
+    public void delete(
+            @PathVariable UUID id
+    ) {
         userService.delete(id);
     }
 

@@ -39,11 +39,21 @@ public class User {
         return password;
     }
 
+    public String setPassword(String password) {
+        return password;
+    }
+
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public String getName() {
         return username;
+    }
+    public void setName(String name) {
+        this.username = name;
     }
 }

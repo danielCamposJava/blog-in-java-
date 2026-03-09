@@ -11,50 +11,70 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class UserService {
+
     private final UserRepository userRepository;
 
-    public  CreateUserResponse createUser(CreateUserRequest request)
-    {
-         User user =  UserMapper.toEntity(request);
-         User savedUser = userRepository.save(user);
+    // CREATE
+    public CreateUserResponse createUser(@Valid CreateUserRequest request) {
 
-         return  UserMapper.toResponse(savedUser);
+        User user = UserMapper.toEntity(request);
+        User savedUser = userRepository.save(user);
+
+        return UserMapper.toResponse(savedUser);
     }
 
-    public  CreateUserResponse findUserById(UUID id)
-    {
-        User user = userRepository.findById(id).orElseThrow(
-                () ->  new PostNotFoundExpection("Post with id " + id + " not found")
-        );
 
-        return  UserMapper.toResponse(user);
+    public CreateUserResponse findUserById(UUID id) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() ->
+                        new PostNotFoundExpection("User with id " + id + " not found")
+                );
+
+        return UserMapper.toResponse(user);
     }
 
-    public void delete(UUID id ){
-        if(!userRepository.existsById(id)){
-            throw  new PostNotFoundExpection("Post with id " + id + " not found");
+    public void delete(UUID id) {
+
+        if (!userRepository.existsById(id)) {
+            throw new PostNotFoundExpection("User with id " + id + " not found");
         }
+
         userRepository.deleteById(id);
     }
 
-    public List<User> findAll(){
-        return userRepository.findAll();
+
+    public List<CreateUserResponse> findAll() {
+
+        return userRepository.findAll()
+                .stream()
+                .map(UserMapper::toResponse)
+                .collect(Collectors.toList());
     }
 
-    public CreateUserResponse updateUser(@Valid UpdateUserRequest request)
-    {
-        User user =  UserMapper.toEntity(request);
+
+    public CreateUserResponse updateUser(UUID id, @Valid UpdateUserRequest request) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() ->
+                        new PostNotFoundExpection("User with id " + id + " not found")
+                );
+
+
+        user.setName(request.name());
+        user.setEmail(request.email());
+
         User savedUser = userRepository.save(user);
-        return  UserMapper.toResponse(savedUser);
 
+        return UserMapper.toResponse(savedUser);
     }
-
-
 }
