@@ -16,7 +16,6 @@ public class UpdateUserRequest {
     @Size(min = 6, max = 20)
     private String password;
 
-    // getters
 
     public String name() {
         return name;
