@@ -1,4 +1,27 @@
 package com.example.blog.Mapper;
 
+import com.example.blog.dto.rp.request.CreatePostRequest;
+import com.example.blog.dto.rp.response.CreateUserResponse;
+import com.example.blog.entity.User;
 public class UserMapper {
+
+   public static User toEntity(CreatePostRequest request){
+
+       User user = null;
+       return new User(
+               user.getEmail(),
+               user.getPassword(),
+               user.getName()
+       );
+   }
+
+   public static CreateUserResponse toResponse(User user){
+       return new CreateUserResponse(
+               user.getId(),
+               user.getEmail(),
+               user.getName(),
+               user.getPassword()
+       );
+   }
+
 }

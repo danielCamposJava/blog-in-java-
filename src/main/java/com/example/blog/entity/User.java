@@ -20,7 +20,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    protected User() {
+    public User() {
         // JPA
     }
 

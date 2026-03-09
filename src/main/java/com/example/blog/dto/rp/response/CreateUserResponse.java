@@ -11,17 +11,17 @@ public record CreateUserResponse(
 
         UUID id,
         String email,
-        String password
+        String password,
 
-) {
+        String userPassword) {
     public  static CreateUserResponse fromEntity(User user) {
 
         List<UpdatePostResuest> updatePostResuests = new ArrayList<>();
         return new CreateUserResponse(
                 user.getId(),
                 user.getEmail(),
-                user.getPassword()
+                user.getPassword(),
 
-        );
+                user.getPassword());
     }
 }
