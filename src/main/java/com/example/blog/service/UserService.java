@@ -1,14 +1,16 @@
 package com.example.blog.service;
+
 import com.example.blog.Mapper.UserMapper;
 import com.example.blog.dto.rp.request.CreateUserRequest;
+import com.example.blog.dto.rp.request.UpdateUserRequest;
 import com.example.blog.dto.rp.response.CreateUserResponse;
 import com.example.blog.entity.User;
 import com.example.blog.expection.PostNotFoundExpection;
 import com.example.blog.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -46,7 +48,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public CreateUserResponse updateUser(CreateUserRequest request)
+    public CreateUserResponse updateUser(@Valid UpdateUserRequest request)
     {
         User user =  UserMapper.toEntity(request);
         User savedUser = userRepository.save(user);
