@@ -23,7 +23,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    // CREATE
     public CreateUserResponse createUser(@Valid CreateUserRequest request) {
 
         User user = UserMapper.toEntity(request);

@@ -5,7 +5,9 @@ import com.example.blog.dto.rp.request.CreatePostRequest;
 import com.example.blog.dto.rp.request.UpdatePostResuest;
 import com.example.blog.dto.rp.response.PostResponse;
 import com.example.blog.entity.Post;
+import com.example.blog.entity.User;
 import com.example.blog.expection.PostNotFoundExpection;
+import com.example.blog.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,14 +19,19 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PostService {
 
+    private final UserRepository userRepository;
     private final PostRepository repository;
 
-  public PostResponse create(CreatePostRequest request){
+  public PostResponse create(CreatePostRequest request, String username){
 
-      Post post =  PostMapper.toEntity(request);
-      Post saved = (Post) repository.save(post);
+      User user = userRepository.findByUsername(username)
+              .orElseThrow(() -> new  RuntimeException("User not found"));
 
-      return  PostMapper.toResponse(saved);
+      Post post = PostMapper.toEntity(request, user);
+
+      userRepository.save(user);
+
+      return  PostMapper.toResponse(repository.save(post));
   }
 
   public PostResponse findById(UUID id) throws Throwable {

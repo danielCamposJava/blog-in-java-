@@ -9,15 +9,13 @@ import com.example.blog.entity.User;
 import java.util.List;
 public class PostMapper {
 
-    public static Post toEntity(CreatePostRequest request){
-        User author = null;
+    public static Post toEntity(CreatePostRequest request, User author){
         return new Post(
                 author,
                 request.title(),
                 request.content()
         );
     }
-
     public static PostResponse toResponse(Post post){
 
         List<String> tags = post.getTags()

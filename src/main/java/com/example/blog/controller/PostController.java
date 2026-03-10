@@ -3,6 +3,7 @@ package com.example.blog.controller;
 import com.example.blog.dto.rp.request.CreatePostRequest;
 import com.example.blog.dto.rp.request.UpdatePostResuest;
 import com.example.blog.dto.rp.response.PostResponse;
+import com.example.blog.entity.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,8 @@ public class PostController {
 
     public  final PostService postService;
     @PostMapping
-    public PostResponse save(@RequestBody @Valid CreatePostRequest request) throws Throwable {
-        return postService.create(request);
+    public PostResponse save(@RequestBody @Valid CreatePostRequest request, User user ) throws Throwable {
+        return postService.create(request, String.valueOf(user));
     }
 
     @GetMapping("/findById{id}")
