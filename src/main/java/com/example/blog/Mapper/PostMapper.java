@@ -7,29 +7,40 @@ import com.example.blog.entity.Tag;
 import com.example.blog.entity.User;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 public class PostMapper {
 
-    public static Post toEntity(CreatePostRequest request, User author){
+    public static Post toEntity(
+            CreatePostRequest request,
+            User author
+    ) {
+
         return new Post(
                 author,
                 request.title(),
                 request.content()
         );
+
     }
-    public static PostResponse toResponse(Post post){
+
+
+    public static PostResponse toResponse(Post post) {
 
         List<String> tags = post.getTags()
                 .stream()
                 .map(Tag::getName)
-                .toList();
+                .collect(Collectors.toList());
 
         return new PostResponse(
                 post.getId(),
                 post.getTitle(),
                 post.getContent(),
-                post.getAuthor().getName(),
+                post.getAuthor().getUsername(),
                 tags,
                 post.getCreatedAt()
         );
+
     }
+
 }

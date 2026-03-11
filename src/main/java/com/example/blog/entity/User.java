@@ -23,7 +23,6 @@ public class User {
     public User() {
     }
 
-    // ✅ ordem corrigida
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
@@ -34,11 +33,22 @@ public class User {
         return id;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    // ❌ seu setter estava errado
     public void setPassword(String password) {
         this.password = password;
     }
@@ -49,13 +59,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getName() {
-        return username;
-    }
-
-    public void setName(String name) {
-        this.username = name;
     }
 }

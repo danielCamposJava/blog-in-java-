@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,14 +22,14 @@ public class Post {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id")
+    @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
     @Column(nullable = false)
     @NotBlank
     private String title;
 
-    @Column(nullable = false, length = 5000)
+    @Column(nullable = false, length = 3000)
     @NotBlank
     @Size(max = 3000)
     private String content;
@@ -50,6 +51,7 @@ public class Post {
     )
     private Set<Tag> tags = new HashSet<>();
 
+
     protected Post() {
     }
 
@@ -59,8 +61,6 @@ public class Post {
         this.content = content;
     }
 
-    public Post(@NotBlank String title, @NotBlank @Size(max = 3000) String content) {
-    }
 
     @PrePersist
     private void prePersist() {
@@ -72,6 +72,7 @@ public class Post {
     private void preUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
 
     public void update(String title, String content) {
         this.title = title;
@@ -89,6 +90,7 @@ public class Post {
     public void delete() {
         this.deleted = true;
     }
+
 
     public UUID getId() {
         return id;
@@ -116,5 +118,9 @@ public class Post {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
     }
 }

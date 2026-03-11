@@ -14,7 +14,7 @@ public class UserMapper {
 
         User user = new User();
 
-        user.setName(request.name());
+        user.setUsername(request.name());
         user.setEmail(request.email());
         user.setPassword(request.password());
 
@@ -29,7 +29,7 @@ public class UserMapper {
 
         return new CreateUserResponse(
                 user.getId(),
-                user.getName(),
+                user.getUsername(),
                 user.getEmail(),
                 user.getPassword());
     }

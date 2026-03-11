@@ -7,57 +7,82 @@ import com.example.blog.dto.rp.response.PostResponse;
 import com.example.blog.entity.Post;
 import com.example.blog.entity.User;
 import com.example.blog.expection.PostNotFoundExpection;
+import com.example.blog.repository.PostRepository;
 import com.example.blog.repository.UserRepository;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.example.blog.repository.PostRepository;
 
 import java.util.UUID;
-@Transactional
+
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PostService {
 
     private final UserRepository userRepository;
-    private final PostRepository repository;
+    private final PostRepository postRepository;
 
-  public PostResponse create(CreatePostRequest request, String username){
 
-      User user = userRepository.findByUsername(username)
-              .orElseThrow(() -> new  RuntimeException("User not found"));
+    public PostResponse create(CreatePostRequest request, String name) {
 
-      Post post = PostMapper.toEntity(request, user);
+        User user = userRepository.findByUsername(name)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found: " + name)
+                );
 
-      userRepository.save(user);
+        Post post = PostMapper.toEntity(request, user);
 
-      return  PostMapper.toResponse(repository.save(post));
-  }
+        return PostMapper.toResponse(
+                postRepository.save(post)
+        );
+    }
 
-  public PostResponse findById(UUID id) throws Throwable {
-      Post post = (Post) repository.findById(id).orElseThrow(
-              () -> new PostNotFoundExpection("Post not found wit id :" + id)
-      );
 
-      return  PostMapper.toResponse(post);
-  }
+    public PostResponse findById(UUID id) {
 
-  public  void delete(UUID id ){
-      if (!repository.existsById(id)) {
-          throw  new PostNotFoundExpection("Post not found with id " + id );
-      }
-      repository.deleteById(id);
-  }
+        Post post = postRepository.findById(id)
+                .orElseThrow(() ->
+                        new PostNotFoundExpection(
+                                "Post not found with id: " + id
+                        )
+                );
 
-   public PostResponse update(UUID id , UpdatePostResuest request) throws Throwable {
-       Post post = (Post) repository.findById(id)
-               .orElseThrow(() ->
-                       new PostNotFoundExpection("Post not found with id: " + id)
-               );
+        return PostMapper.toResponse(post);
+    }
 
-       post.update(request.title(), request.content());
 
-       Post updated = (Post) repository.save(post);
-       return PostMapper.toResponse(updated);
-   }
+    public void delete(UUID id) {
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(() ->
+                        new PostNotFoundExpection(
+                                "Post not found with id: " + id
+                        )
+                );
+
+        post.delete(); // soft delete
+    }
+
+
+    public PostResponse update(
+            UUID id,
+            UpdatePostResuest request
+    ) {
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(() ->
+                        new PostNotFoundExpection(
+                                "Post not found with id: " + id
+                        )
+                );
+
+        post.update(
+                request.title(),
+                request.content()
+        );
+
+        return PostMapper.toResponse(post);
+    }
 }

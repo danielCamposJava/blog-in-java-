@@ -69,7 +69,7 @@ public class UserService {
                 );
 
 
-        user.setName(request.name());
+        user.setUsername(request.name());
         user.setEmail(request.email());
 
         User savedUser = userRepository.save(user);

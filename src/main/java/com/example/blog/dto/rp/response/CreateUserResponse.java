@@ -18,7 +18,7 @@ public record CreateUserResponse(
         List<UpdatePostResuest> updatePostResuests = new ArrayList<>();
         return new CreateUserResponse(
                 user.getId(),
-                user.getName(),
+                user.getUsername(),
                 user.getEmail(),
                 user.getPassword()
         );
