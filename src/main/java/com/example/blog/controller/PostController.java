@@ -4,10 +4,8 @@ import com.example.blog.dto.rp.request.CreatePostRequest;
 import com.example.blog.dto.rp.request.UpdatePostResuest;
 import com.example.blog.dto.rp.response.PostResponse;
 import com.example.blog.service.PostService;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import jakarta.validation.Valid;
 import java.util.UUID;
 
