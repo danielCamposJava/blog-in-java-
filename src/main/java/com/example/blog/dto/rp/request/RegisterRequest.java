@@ -1,6 +1,6 @@
 package com.example.blog.dto.rp.request;
 
-public record LoginRequest(
+public record RegisterRequest(
         String username,
         String password
 ) {

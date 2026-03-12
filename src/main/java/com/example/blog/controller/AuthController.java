@@ -1,12 +1,10 @@
 package com.example.blog.controller;
 
-import com.example.blog.dto.rp.request.LoginRequest;
 import com.example.blog.dto.rp.response.AuthReponse;
-import com.example.blog.dto.rp.response.RegisterRequest;
-;
 import com.example.blog.service.AuthService;
-import com.example.blog.service.UserService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,25 +12,34 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private  final AuthService service;
+    private final AuthService service;
 
-    @PostMapping("/Register")
-    public AuthReponse register(@RequestBody RegisterRequest request){
+
+    @PostMapping("/register")
+    public AuthReponse register(
+            @RequestBody com.example.blog.dto.rp.request.RegisterRequest request
+    ) {
+
         String token = service.register(
                 request.username(),
-                request.pasword());
-        return  new AuthReponse(token);
+                request.password()
+        );
+
+        return new AuthReponse(token);
     }
 
-    @GetMapping("/login")
-    public AuthReponse Login(
-            @RequestBody LoginRequest request
-    ){
+
+    @PostMapping("/login")
+    public AuthReponse login(
+            @RequestBody com.example.blog.dto.rp.request.LoginRequest request
+    ) {
+
         String token = service.login(
-           request.username(),
-           request.password()
+                request.username(),
+                request.password()
         );
-        return  new AuthReponse(token);
+
+        return new AuthReponse(token);
     }
 
 }
