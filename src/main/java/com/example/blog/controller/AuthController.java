@@ -14,21 +14,6 @@ public class AuthController {
 
     private final AuthService service;
 
-
-    @PostMapping("/register")
-    public AuthReponse register(
-            @RequestBody com.example.blog.dto.rp.request.RegisterRequest request
-    ) {
-
-        String token = service.register(
-                request.username(),
-                request.password()
-        );
-
-        return new AuthReponse(token);
-    }
-
-
     @PostMapping("/login")
     public AuthReponse login(
             @RequestBody com.example.blog.dto.rp.request.LoginRequest request

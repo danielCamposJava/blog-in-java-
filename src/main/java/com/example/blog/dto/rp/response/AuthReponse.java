@@ -4,6 +4,6 @@ public class AuthReponse {
     String token;
 
     public AuthReponse(String token) {
-
+       this.token = token;
     }
 }

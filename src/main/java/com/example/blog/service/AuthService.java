@@ -16,25 +16,6 @@ public class AuthService {
     private final com.example.blog.service.JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
 
-
-    public String register(
-            String username,
-            String password
-    ) {
-
-        User user = new User();
-
-        user.setUsername(username);
-        user.setPassword(
-                passwordEncoder.encode(password)
-        );
-
-        userRepository.save(user);
-
-        return jwtService.generateToken(username);
-    }
-
-
     public String login(
             String username,
             String password
